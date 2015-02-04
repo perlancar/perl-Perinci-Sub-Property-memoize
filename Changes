@@ -1,5 +1,13 @@
 Revision history for Perinci-Sub-Property-memoize
 
+0.02    2015-02-05 (PERLANCAR)
+
+	- No functional changes.
+
+	- Fix tests and update to latest Test::Perinci::Sub::Wrapper
+	  [RT#101901].
+
+
 0.01     2014-03-13 (SHARYANTO)
 
          - First release.
