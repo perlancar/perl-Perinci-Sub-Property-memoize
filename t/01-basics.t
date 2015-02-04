@@ -7,14 +7,19 @@ use warnings;
 use Test::More 0.98;
 use Test::Perinci::Sub::Wrapper qw(test_wrap);
 
+sub _clean_cache {
+    no warnings 'once';
+    %Perinci::Sub::Wrapped::memoize_cache = ();
+}
+
 {
     my $n = 0;
-    my $sub  = sub { ++$n };
+    my $sub  = sub { [200,"OK",++$n] };
     my $meta = {v=>1.1};
 
     test_wrap(
         name => 'no args',
-        pre_test => sub { $n = 0 },
+        pretest => sub { $n = 0; _clean_cache() },
         wrap_args => {sub => $sub, meta => $meta, convert=>{memoize=>1}},
         wrap_status => 200,
         calls => [
@@ -25,7 +30,7 @@ use Test::Perinci::Sub::Wrapper qw(test_wrap);
 
     test_wrap(
         name => 'another function',
-        pre_test => sub { $n = 2 },
+        pretest => sub { $n = 2; _clean_cache() },
         wrap_args => {sub => $sub, meta => $meta, convert=>{memoize=>1}},
         wrap_status => 200,
         calls => [
@@ -36,17 +41,17 @@ use Test::Perinci::Sub::Wrapper qw(test_wrap);
 }
 
 {
-    my $na = 0;
-    my $nb = 10;
+    my $na;
+    my $nb;
     my $sub  = sub {
         my %args = @_;
-        if ($args{a}) { ++$na } elsif ($args{b}) { ++$nb } else { 0 }
+        if ($args{a}) { [200,"OK",++$na] } elsif ($args{b}) { [200,"OK",++$nb] } else { [200,"OK",0] }
     };
     my $meta = {v=>1.1, args=>{a=>{}, b=>{}}};
 
     test_wrap(
         name => 'with args',
-        pre_test => sub { $na = 0; $nb = 0 },
+        pretest => sub { $na = 0; $nb = 10; _clean_cache() },
         wrap_args => {sub => $sub, meta => $meta, convert=>{memoize=>1}},
         wrap_status => 200,
         calls => [
