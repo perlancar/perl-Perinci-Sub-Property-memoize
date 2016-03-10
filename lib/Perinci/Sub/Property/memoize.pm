@@ -1,12 +1,14 @@
 package Perinci::Sub::Property::memoize;
 
+# DATE
+# VERSION
+
 use 5.010001;
 use strict;
 use warnings;
 
+use Data::Dmp;
 use Perinci::Sub::PropertyUtil qw(declare_property);
-
-# VERSION
 
 declare_property(
     name => 'memoize',
@@ -33,12 +35,12 @@ declare_property(
             $self->select_section('declare_vars');
             $self->_add_var('_w_cache_key');
             my @fargs_names = sort keys %{ $self->{_meta}{args} // {} };
-            my $qsub_name = Perinci::Sub::Wrapper::__squote($self->{_args}{sub_name});
+            my $qsub_name = dmp($self->{_args}{sub_name});
             $self->push_lines(
                 '{',
                 '    no warnings;',
                 '    $_w_cache_key = join("\0", map {$args{$_}} ('.
-                    join(",",map {Perinci::Sub::Wrapper::__squote($_)}
+                    join(",",map {dmp($_)}
                              @fargs_names).'));',
                 '    return $Perinci::Sub::Wrapped::memoize_cache{'.$qsub_name.'}{$_w_cache_key} '.
                     'if exists $Perinci::Sub::Wrapped::memoize_cache{'.$qsub_name.'}{$_w_cache_key};',
