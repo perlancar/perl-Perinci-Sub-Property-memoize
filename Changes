@@ -1,5 +1,11 @@
 Revision history for Perinci-Sub-Property-memoize
 
+0.03    2016-03-10 (PERLANCAR)
+
+        - Update code (__squote has been removed, we now use Data::Dmp)
+          [RT#112890].
+
+
 0.02    2015-02-05 (PERLANCAR)
 
 	- No functional changes.
