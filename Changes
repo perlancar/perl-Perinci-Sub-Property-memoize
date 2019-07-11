@@ -1,17 +1,17 @@
-0.04    2016-05-11 (PERLANCAR)
+0.04    2016-05-11  Released-By: PERLANCAR
 
 	- [dist] Bump prereq version Perinci::Sub::PropertyUtil to 0.11
 	  (incompatible change due to schema for Rinci function now in
 	  Sah::Schema::rinci::function_meta instead of Sah::Schema::Rinci).
 
 
-0.03    2016-03-10 (PERLANCAR)
+0.03    2016-03-10  Released-By: PERLANCAR
 
         - Update code (__squote has been removed, we now use Data::Dmp)
           [RT#112890].
 
 
-0.02    2015-02-05 (PERLANCAR)
+0.02    2015-02-05  Released-By: PERLANCAR
 
 	- No functional changes.
 
@@ -19,6 +19,6 @@
 	  [RT#101901].
 
 
-0.01     2014-03-13 (SHARYANTO)
+0.01     2014-03-13  Released-By: SHARYANTO
 
          - First release.
